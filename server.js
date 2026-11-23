@@ -39,9 +39,8 @@ function checkPw(pw, a) {
 if (!db.admin) {
   const user = process.env.ADMIN_USER || 'admin', pass = process.env.ADMIN_PASS || crypto.randomBytes(5).toString('hex');
   db.admin = Object.assign({ user }, hashPw(pass)); flush();
-  console.log('\n=== נוצר משתמש מנהל ===\nשם משתמש: ' + user + '\nסיסמה:    ' + pass + '\n(אפשר לשנות בעמוד /admin)\n');
-}
-const b64 = s => Buffer.from(s).toString('base64url');
+  console.log('\n=== נוצר משתמש מנהל ===\nשם משתמש: ' + user + '\nסיסמה:    ' + pass + '\n(true);
+}const b64 = s => Buffer.from(s).toString('base64url');
 function sign(o) { const p = b64(JSON.stringify(o)); return p + '.' + crypto.createHmac('sha256', SECRET).update(p).digest('base64url'); }
 function verify(t) {
   if (!t) return null;
