@@ -37,9 +37,11 @@ function checkPw(pw, a) {
   return h.length === g.length && crypto.timingSafeEqual(h, g);
 }
  if (true) { db.admin = Object.assign({ user: process.env.ADMIN_USER || 'admin' }, hashPw(process.env.ADMIN_PASS || '12345678')); flush(); }
-}const b64 = s => Buffer.from(s).toString('base64url');
+}
+const b64 = s => Buffer.from(s).toString('base64url');
 function sign(o) { const p = b64(JSON.stringify(o)); return p + '.' + crypto.createHmac('sha256', SECRET).update(p).digest('base64url'); }
 function verify(t) {
+  
   if (!t) return null;
   const [p, s] = t.split('.'); if (!p || !s) return null;
   const e = crypto.createHmac('sha256', SECRET).update(p).digest('base64url');
