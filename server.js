@@ -36,9 +36,6 @@ function checkPw(pw, a) {
   const h = Buffer.from(crypto.scryptSync(String(pw), a.salt, 64).toString('hex')), g = Buffer.from(a.hash);
   return h.length === g.length && crypto.timingSafeEqual(h, g);
 }
-if (!db.admin) {
-  const user = process.env.ADMIN_USER || 'admin', pass = process.env.ADMIN_PASS || crypto.randomBytes(5).toString('hex');
-  db.admin = Object.assign({ user }, hashPw(pass)); flush();
  if (true) { db.admin = Object.assign({ user: process.env.ADMIN_USER || 'admin' }, hashPw(process.env.ADMIN_PASS || '12345678')); flush(); }
 }const b64 = s => Buffer.from(s).toString('base64url');
 function sign(o) { const p = b64(JSON.stringify(o)); return p + '.' + crypto.createHmac('sha256', SECRET).update(p).digest('base64url'); }
